@@ -42,8 +42,8 @@ services:
             CACHE_STORE: 'redis'
             REDIS: 'redis://cache:6379'
 
-            ADMIN_EMAIL: 'kontakt@abteilung.ch'
-            ADMIN_PASSWORD: 'killer11'
+            ADMIN_EMAIL: 'admin@example.com'
+            ADMIN_PASSWORD: 'd1r3ctu5'
 
             # Make sure to set this in production
             # (see https://docs.directus.io/self-hosted/config-options#general)
