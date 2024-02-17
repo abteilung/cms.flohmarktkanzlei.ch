@@ -50,8 +50,8 @@ services:
             PUBLIC_URL: 'https://flohmi-cms.kommando.info'
 
         # Environment variables can also be defined in a file (for example `.env`):
-        # env_file:
-        #	  - .env
+        env_file:
+        	  - .env
 volumes:
     my_uploads:
         driver: local
