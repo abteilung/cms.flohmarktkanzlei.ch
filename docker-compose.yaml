@@ -65,3 +65,6 @@ volumes:
             type: none
             o: bind
             device: ./data/extensions
+networks:
+    coolify:
+        external: true
