@@ -22,8 +22,9 @@ services:
         ports:
             - 8054:8055
         volumes:
-            - ./my_uploads:/directus/uploads
-            - ./my_extensions:/directus/extensions
+            - ./database:/directus/database
+            - ./uploads:/directus/uploads
+            - ./extensions:/directus/extensions
         depends_on:
             - cache
             - database
