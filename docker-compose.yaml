@@ -1,6 +1,7 @@
 version: '3'
 services:
     database:
+        container_name: database
         image: postgis/postgis:13-master
         # Required when running on platform other than amd64, like Apple M1/M2:
         # platform: linux/amd64
@@ -15,6 +16,7 @@ services:
         image: redis:6
 
     directus:
+        container_name: directus
         build:
             context: .
             dockerfile: Dockerfile
