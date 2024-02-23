@@ -6,4 +6,4 @@ RUN corepack enable \
   && chown node:node /directus
 
 USER node
-RUN pnpm install directus-extension-flow2pdf directus-extension-group-modal-interface directus-extension-api-trigger-interface directus-extension-board-layout directus-extension-computed-interface directus-extension-grid-layout directus-extension-inline-form-interface
+RUN pnpm install directus-extension-seo directus-extension-flow2pdf directus-extension-group-modal-interface directus-extension-api-trigger-interface directus-extension-board-layout directus-extension-computed-interface directus-extension-grid-layout directus-extension-inline-form-interface
