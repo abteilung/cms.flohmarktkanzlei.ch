@@ -48,25 +48,11 @@ services:
             ADMIN_EMAIL: 'admin@example.com'
             ADMIN_PASSWORD: 'd1r3ctu5'
 
-            EMAIL_SMTP_HOST: "ses-smtp-user.flohmarktkanzlei.ch"
-            EMAIL_SMTP_PORT: "587"
-            EMAIL_SMTP_USER: "AKIAW45QRV7XSYZG4JJV"
-            EMAIL_SMTP_PASSWORD: "BLQwOaqZEG4XHyWlPkk4go/Pm39BPbVCrbJmfYwY2sen"
-            EMAIL_SMTP_POOL: "true"
-            EMAIL_SMTP_SECURE: "true"
-            EMAIL_SMTP_IGNORE_TLS: "false"
-            EMAIL_SMTP_NAME: "Amazon SES"
-            EMAIL_TRANSPORT: "smtp"
-            EMAIL_FROM: "kontakt@flohmarktkanzlei.ch"
-
-            CONTENT_SECURITY_POLICY_USE_DEFAULTS: "true"
-            CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: "flohmarktkanzlei-ch.vercel.app"
-
             # Make sure to set this in production
             # (see https://docs.directus.io/self-hosted/config-options#general)
             PUBLIC_URL: 'https://flohmi-cms.kommando.info'
             CORS_ENABLED: true
 
         # Environment variables can also be defined in a file (for example `.env`):
-        #env_file:
-        #    - .env
+        env_file:
+           - .env
