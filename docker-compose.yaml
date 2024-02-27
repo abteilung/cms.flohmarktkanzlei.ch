@@ -25,9 +25,8 @@ services:
         ports:
             - 8054:8055
         volumes:
-            - ./uploads:/directus/uploads
-            - ./database:/directus/database
-            - ./extensions:/directus/extensions
+            - ./my_uploads:/directus/uploads
+            - ./my_extensions:/directus/extensions
         depends_on:
             - cache
             - database
@@ -57,3 +56,16 @@ services:
         # Environment variables can also be defined in a file (for example `.env`):
         # env_file:
         #     - .env
+volumes:
+    my_uploads:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ./data/uploads
+    my_extensions:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ./data/extensions
