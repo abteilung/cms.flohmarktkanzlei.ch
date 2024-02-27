@@ -1,4 +1,4 @@
-    version: '3'
+version: '3'
 services:
     database:
         container_name: database
@@ -14,19 +14,19 @@ services:
 
     cache:
         container_name: cache
-        image: redis:6
+        image: redis:7
 
     directus:
         container_name: directus
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.9.2
+        image: directus/directus:10.9.3
         ports:
-            - 8054:8055
+            - 8055:8055
         volumes:
-            - my_uploads:/directus/uploads
-            - my_extensions:/directus/extensions
+            - ./my_uploads:/directus/uploads
+            - ./my_extensions:/directus/extensions
         depends_on:
             - cache
             - database
@@ -55,4 +55,17 @@ services:
 
         # Environment variables can also be defined in a file (for example `.env`):
         env_file:
-           - .env
+            - .env
+volumes:
+    my_uploads:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ./data/uploads
+    my_extensions:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ./data/extensions
