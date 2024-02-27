@@ -56,3 +56,16 @@ services:
         # Environment variables can also be defined in a file (for example `.env`):
         # env_file:
         #     - .env
+volumes:
+    flohmi_uploads:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ./data/uploads
+    flohmi_extensions:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ./data/extensions
