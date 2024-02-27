@@ -25,8 +25,8 @@ services:
         ports:
             - 8054:8055
         volumes:
-            - ./flohmi_uploads:/directus/uploads
-            - ./flohmi_extensions:/directus/extensions
+            - ./kanzlei_uploads:/directus/uploads
+            - ./kanzlei_extensions:/directus/extensions
         depends_on:
             - cache
             - database
@@ -57,13 +57,13 @@ services:
         # env_file:
         #     - .env
 volumes:
-    flohmi_uploads:
+    kanzlei_uploads:
         driver: local
         driver_opts:
             type: none
             o: bind
             device: ./data/uploads
-    flohmi_extensions:
+    kanzlei_extensions:
         driver: local
         driver_opts:
             type: none
