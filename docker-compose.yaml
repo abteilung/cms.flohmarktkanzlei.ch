@@ -42,8 +42,15 @@ services:
             CACHE_STORE: 'redis'
             REDIS: 'redis://cache:6379'
 
-            ADMIN_EMAIL: 'admin@example.com'
-            ADMIN_PASSWORD: 'd1r3ctu5'
+            ADMIN_EMAIL: 'kontakt@abteilung.ch'
+            ADMIN_PASSWORD: '5>-5tPX~dZc5'
+
+            EMAIL_FROM: 'info@flohmarktkanzlei.ch'
+            EMAIL_TRANSPORT: 'smtp'
+            EMAIL_SMTP_HOST: 'smtp.mailersend.net'
+            EMAIL_SMTP_PORT: '587'
+            EMAIL_SMTP_USER: 'MS_wi2pYK@trial-neqvygm16pwg0p7w.mlsender.net'
+            EMAIL_SMTP_PASSWORD: 'ZKyYZxirpKpBnTSQ'
 
             # Make sure to set this in production
             # (see https://docs.directus.io/self-hosted/config-options#general)
