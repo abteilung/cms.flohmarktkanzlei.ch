@@ -18,10 +18,7 @@ services:
 
     directus:
         container_name: directus
-        build:
-            context: .
-            dockerfile: Dockerfile
-        image: directus/directus:10.9.3
+        image: directus/directus:10.10
         ports:
             - 8054:8055
         volumes:

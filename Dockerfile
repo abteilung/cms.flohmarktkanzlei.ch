@@ -1,4 +1,4 @@
-FROM directus/directus:10.9.3
+FROM directus/directus:10.10.1
 USER root
 RUN corepack enable \
   && corepack prepare pnpm@8.1.1 --activate \
@@ -6,8 +6,8 @@ RUN corepack enable \
   && chown -R node:node /directus /directus/database /directus/extensions /directus/uploads
 
 
-USER node
-RUN pnpm install directus-extension-group-modal-interface directus-extension-api-trigger-interface directus-extension-board-layout directus-extension-computed-interface directus-extension-grid-layout directus-extension-inline-form-interface
+# USER node
+# RUN pnpm install directus-extension-group-modal-interface directus-extension-api-trigger-interface directus-extension-board-layout directus-extension-computed-interface directus-extension-grid-layout directus-extension-inline-form-interface
 
 # Try out another time:
 # directus-extension-seo // not working as of now. Wait for update > 1.3.2
