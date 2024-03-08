@@ -39,6 +39,7 @@ services:
             DB_PASSWORD: 'directus'
 
             CACHE_ENABLED: true
+            CACHE_TTL: '5m'
             CACHE_STORE: 'redis'
             REDIS: 'redis://cache:6379'
 
@@ -51,8 +52,8 @@ services:
             CORS_ENABLED: true
 
         # Environment variables can also be defined in a file (for example `.env`):
-        env_file:
-            - .env
+        # env_file:
+        #     - .env
 volumes:
     my_uploads:
         driver: local
