@@ -24,7 +24,6 @@ services:
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
-            - /usr/sbin/sendmail:/usr/sbin/sendmail
         depends_on:
             - cache
             - database
