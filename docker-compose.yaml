@@ -31,6 +31,17 @@ services:
             KEY: '255d861b-5996-5ea1-9aa3-922530ec40b1'
             SECRET: '6116487b-b5b5-52c2-cda1-c8022c45e263'
 
+            # Get vrom environment variable
+            EMAIL_SMTP_TRANSPORT: ${EMAIL_SMTP_TRANSPORT}
+            EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
+            EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
+            EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
+            EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
+            EMAIL_SMTP_NAME: ${EMAIL_SMTP_NAME}
+            EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
+            EMAIL_SMTP_FROM: ${EMAIL_SMTP_FROM}
+            EMAIL_SMTP_VERIFY_SETUP: ${EMAIL_SMTP_VERIFY_SETUP}
+
             DB_CLIENT: 'pg'
             DB_HOST: 'database'
             DB_PORT: '5432'
