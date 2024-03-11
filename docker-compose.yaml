@@ -39,8 +39,6 @@ services:
             EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
             EMAIL_SMTP_NAME: ${EMAIL_SMTP_NAME}
             EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
-            EMAIL_SMTP_FROM: ${EMAIL_SMTP_FROM}
-            EMAIL_SMTP_VERIFY_SETUP: ${EMAIL_SMTP_VERIFY_SETUP}
 
             DB_CLIENT: 'pg'
             DB_HOST: 'database'
