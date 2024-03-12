@@ -40,6 +40,10 @@ services:
             EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
             EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
             EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
+            EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
+
+            # Other Settinsg
+            EMAIL_FROM: ${EMAIL_FROM}
 
             DB_CLIENT: 'pg'
             DB_HOST: 'database'
