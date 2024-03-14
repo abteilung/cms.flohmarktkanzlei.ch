@@ -56,6 +56,7 @@ services:
             DB_PASSWORD: 'directus'
 
             CACHE_ENABLED: true
+            CACHE_AUTO_PURGE: true
             CACHE_TTL: '5m'
             CACHE_STORE: 'redis'
             ASSETS_CACHE_TTL: '300d'
