@@ -1,4 +1,4 @@
-FROM directus/directus:10.10.3
+FROM directus/directus:10.10.4
 USER root
 RUN corepack enable \
   && corepack prepare pnpm@8.1.1 --activate \
