@@ -16,7 +16,7 @@ services:
         container_name: cache
         image: redis:6
         environment:
-            - TZ: Europe/Zurich
+            - TZ: 'Europe/Zurich'
 
     directus:
         container_name: directus
