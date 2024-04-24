@@ -28,6 +28,7 @@ services:
             - cache
             - database
         environment:
+            TZ: 'Europe/Zurich'
             KEY: '255d861b-5996-5ea1-9aa3-922530ec40b1'
             SECRET: '6116487b-b5b5-52c2-cda1-c8022c45e263'
 
