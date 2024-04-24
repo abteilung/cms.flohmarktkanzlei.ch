@@ -18,6 +18,8 @@ services:
         image: redis:6
 
     directus:
+        build:
+            context: .
         container_name: directus
         image: directus/directus:10.10.7
         ports:
