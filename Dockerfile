@@ -13,4 +13,8 @@
 # # directus-extension-seo // not working as of now. Wait for update > 1.3.2
 # # directus-extension-flow2pdf // not needed for now
 
-
+# FROM directus/directus:10.10.7
+# USER root
+# RUN apt-get update && apt-get install -y tzdata
+# ENV TZ=Europe/Zurich
+# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
