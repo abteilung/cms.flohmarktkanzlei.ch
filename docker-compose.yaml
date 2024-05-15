@@ -13,7 +13,7 @@ services:
             POSTGRES_PASSWORD: 'directus'
             POSTGRES_DB: 'directus'
         healthcheck:
-            test: pg_isready -U directus -d directus
+            test: ['CMD-SHELL', 'pg_isready -U directus -d directus']
             interval: 30s
             timeout: 10s
             retries: 10
@@ -88,7 +88,7 @@ services:
             CORS_ENABLED: true
 
         healthcheck:
-            test: curl --fail http://localhost:8055
+            test: ['CMD-SHELL', 'curl --fail http://localhost:8055 || exit 1']
             interval: 30s
             timeout: 10s
             retries: 10
