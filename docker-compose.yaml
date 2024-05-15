@@ -21,7 +21,7 @@ services:
         build:
             context: .
         container_name: directus
-        image: directus/directus:10.10.7
+        image: directus/directus:10.11
         ports:
             - 8054:8055
         volumes:
