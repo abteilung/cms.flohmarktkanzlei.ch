@@ -12,22 +12,10 @@ services:
             POSTGRES_USER: 'directus'
             POSTGRES_PASSWORD: 'directus'
             POSTGRES_DB: 'directus'
-        healthcheck:
-            test: pg_isready -U directus -d directus
-            interval: 30s
-            timeout: 10s
-            retries: 10
-        restart: always
 
     cache:
         container_name: cache
         image: redis:6
-        healthcheck:
-            test: ['CMD', 'redis-cli', 'ping']
-            interval: 30s
-            timeout: 10s
-            retries: 3
-        restart: always
 
     directus:
         build:
@@ -86,13 +74,6 @@ services:
             # (see https://docs.directus.io/self-hosted/config-options#general)
             PUBLIC_URL: 'https://studio.flohmarktkanzlei.ch'
             CORS_ENABLED: true
-
-        healthcheck:
-            test: curl --fail http://localhost:8055
-            interval: 30s
-            timeout: 10s
-            retries: 10
-        restart: always
 
         # Environment variables can also be defined in a file (for example `.env`):
         # env_file:
