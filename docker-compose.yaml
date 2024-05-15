@@ -76,10 +76,11 @@ services:
             CORS_ENABLED: true
 
         healthcheck:
-            test: ['CMD', 'curl', '-f', 'http://localhost:8055/']
+            test: curl --fail http://localhost:8055
             interval: 30s
             timeout: 10s
-            retries: 3
+            retries: 10
+        restart: always
 
         # Environment variables can also be defined in a file (for example `.env`):
         # env_file:
