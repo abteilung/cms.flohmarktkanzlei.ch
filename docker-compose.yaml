@@ -14,14 +14,20 @@ services:
             POSTGRES_DB: 'directus'
         healthcheck:
             test: pg_isready -U directus -d directus
-            interval: 5s
-            timeout: 5s
+            interval: 30s
+            timeout: 10s
             retries: 10
         restart: always
 
     cache:
         container_name: cache
         image: redis:6
+        healthcheck:
+            test: ['CMD', 'redis-cli', 'ping']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+        restart: always
 
     directus:
         build:
