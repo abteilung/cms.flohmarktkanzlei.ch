@@ -75,6 +75,12 @@ services:
             PUBLIC_URL: 'https://studio.flohmarktkanzlei.ch'
             CORS_ENABLED: true
 
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'https://studio.flohmarktkanzlei.ch']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
         # Environment variables can also be defined in a file (for example `.env`):
         # env_file:
         #     - .env
