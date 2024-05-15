@@ -12,22 +12,10 @@ services:
             POSTGRES_USER: 'directus'
             POSTGRES_PASSWORD: 'directus'
             POSTGRES_DB: 'directus'
-        healthcheck:
-            test: ['CMD-SHELL', 'pg_isready -U directus -d directus']
-            interval: 30s
-            timeout: 10s
-            retries: 10
-        restart: always
 
     cache:
         container_name: cache
         image: redis:6
-        healthcheck:
-            test: ['CMD-SHELL', 'redis-cli ping']
-            interval: 30s
-            timeout: 10s
-            retries: 3
-        restart: always
 
     directus:
         build:
@@ -40,10 +28,8 @@ services:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
-            cache:
-                condition: service_healthy
-            database:
-                condition: service_healthy
+            - cache
+            - database
         environment:
             TZ: 'Europe/Zurich'
             KEY: '255d861b-5996-5ea1-9aa3-922530ec40b1'
@@ -52,7 +38,7 @@ services:
             # Activate websockets
             WEBSOCKETS_ENABLED: true
 
-            # Get from environment variable
+            # Get vrom environment variable
             EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
             EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
             EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
@@ -63,7 +49,7 @@ services:
             EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
             EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
 
-            # Other Settings
+            # Other Settinsg
             EMAIL_FROM: ${EMAIL_FROM}
 
             DB_CLIENT: 'pg'
@@ -88,13 +74,6 @@ services:
             # (see https://docs.directus.io/self-hosted/config-options#general)
             PUBLIC_URL: 'https://studio.flohmarktkanzlei.ch'
             CORS_ENABLED: true
-
-        healthcheck:
-            test: ['CMD-SHELL', 'curl --fail http://localhost:8055 || exit 1']
-            interval: 30s
-            timeout: 10s
-            retries: 10
-        restart: always
 
         # Environment variables can also be defined in a file (for example `.env`):
         # env_file:
