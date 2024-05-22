@@ -70,7 +70,7 @@ services:
             ASSETS_CACHE_TTL: '300d'
             REDIS: 'redis://cache:6379'
             ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${AMIN_PASS}
+            ADMIN_PASSWORD: ${ADMIN_PASS}
             PUBLIC_URL: https://${PUBLIC_URL}
             CORS_ENABLED: 'true'
         labels:
@@ -111,7 +111,7 @@ services:
             ASSETS_CACHE_TTL: '300d'
             REDIS: 'redis://cache:6379'
             ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${AMIN_PASS}
+            ADMIN_PASSWORD: ${ADMIN_PASS}
             PUBLIC_URL: https://${PUBLIC_URL}
             CORS_ENABLED: 'true'
         labels:
