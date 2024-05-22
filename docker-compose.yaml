@@ -3,18 +3,19 @@ services:
     traefik:
         image: traefik:v2.5
         command:
-            - --configFile=/etc/traefik/traefik.yml
+            - --api.insecure=true
+            - --providers.docker=true
+            - --entrypoints.web.address=:88
         ports:
-            - '81:80'
-            - '8188:8080'
+            - '88:80'
+            - '8088:8080'
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - ./traefik.yml:/etc/traefik/traefik.yml
         labels:
             - 'traefik.enable=true'
             - 'traefik.http.routers.api.rule=Host(`traefik.local`)'
-            - 'traefik.http.routers.api.entrypoints=web'
             - 'traefik.http.routers.api.service=api@internal'
+            - 'traefik.http.services.api.loadbalancer.server.port=8080'
 
     database:
         container_name: database
@@ -75,7 +76,6 @@ services:
         labels:
             - 'traefik.enable=true'
             - 'traefik.http.routers.directus.rule=Host(`${PUBLIC_URL}`)'
-            - 'traefik.http.routers.directus.entrypoints=web'
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
     directus_replica:
@@ -116,9 +116,8 @@ services:
             CORS_ENABLED: 'true'
         labels:
             - 'traefik.enable=true'
-            - 'traefik.http.routers.directus_replica.rule=Host(`${PUBLIC_URL}`)'
-            - 'traefik.http.routers.directus_replica.entrypoints=web'
-            - 'traefik.http.services.directus_replica.loadbalancer.server.port=8055'
+            - 'traefik.http.routers.directus.rule=Host(`${PUBLIC_URL}`)'
+            - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
 volumes:
     my_uploads:
