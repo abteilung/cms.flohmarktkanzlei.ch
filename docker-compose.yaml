@@ -14,8 +14,8 @@ services:
         labels:
             - 'traefik.enable=true'
             - 'traefik.http.routers.api.rule=Host(`traefik.local`)'
-            - 'traefik.http.routers.api.entrypoints=web'
             - 'traefik.http.routers.api.service=api@internal'
+            - 'traefik.http.services.api.loadbalancer.server.port=8080'
 
     database:
         container_name: database
@@ -76,7 +76,6 @@ services:
         labels:
             - 'traefik.enable=true'
             - 'traefik.http.routers.directus.rule=Host(`${PUBLIC_URL}`)'
-            - 'traefik.http.routers.directus.entrypoints=web'
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
     directus_replica:
@@ -118,7 +117,6 @@ services:
         labels:
             - 'traefik.enable=true'
             - 'traefik.http.routers.directus.rule=Host(`${PUBLIC_URL}`)'
-            - 'traefik.http.routers.directus.entrypoints=web'
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
 volumes:
