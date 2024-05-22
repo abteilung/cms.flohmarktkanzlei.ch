@@ -33,7 +33,7 @@ services:
         image: redis:6
 
     directus:
-        image: directus/directus:10.11
+        image: directus/directus:10.11.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
@@ -77,7 +77,7 @@ services:
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
     directus_replica:
-        image: directus/directus:10.11
+        image: directus/directus:10.11.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
