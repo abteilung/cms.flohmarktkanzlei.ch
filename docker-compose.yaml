@@ -23,7 +23,7 @@ services:
         volumes:
             - ./data/database:/var/lib/postgresql/data
         environment:
-            TZ: 'Europe/Zurich'
+            TZ: ${TZ}
             POSTGRES_USER: 'directus'
             POSTGRES_PASSWORD: 'directus'
             POSTGRES_DB: 'directus'
@@ -41,7 +41,7 @@ services:
             - cache
             - database
         environment:
-            TZ: 'Europe/Zurich'
+            TZ: ${TZ}
             KEY: '255d861b-5996-5ea1-9aa3-922530ec40b1'
             SECRET: '6116487b-b5b5-52c2-cda1-c8022c45e263'
             WEBSOCKETS_ENABLED: 'true'
@@ -67,13 +67,13 @@ services:
             CACHE_STORE: 'redis'
             ASSETS_CACHE_TTL: '300d'
             REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: 'kontakt@abteilung.ch'
-            ADMIN_PASSWORD: '5>-5tPX~dZc5'
-            PUBLIC_URL: 'https://studiofloh.kommando.info'
+            ADMIN_EMAIL: ${ADMIN_EMAIL}
+            ADMIN_PASSWORD: ${AMIN_PASS}
+            PUBLIC_URL: https://${PUBLIC_URL}
             CORS_ENABLED: 'true'
         labels:
             - 'traefik.enable=true'
-            - 'traefik.http.routers.directus.rule=Host(`studiofloh.kommando.info`)'
+            - 'traefik.http.routers.directus.rule=Host(${PUBLIC_URL})'
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
     directus_replica:
@@ -82,7 +82,7 @@ services:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         environment:
-            TZ: 'Europe/Zurich'
+            TZ: ${TZ}
             KEY: '255d861b-5996-5ea1-9aa3-922530ec40b1'
             SECRET: '6116487b-b5b5-52c2-cda1-c8022c45e263'
             WEBSOCKETS_ENABLED: 'true'
@@ -108,13 +108,13 @@ services:
             CACHE_STORE: 'redis'
             ASSETS_CACHE_TTL: '300d'
             REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: 'kontakt@abteilung.ch'
-            ADMIN_PASSWORD: '5>-5tPX~dZc5'
-            PUBLIC_URL: 'https://studiofloh.kommando.info'
+            ADMIN_EMAIL: ${ADMIN_EMAIL}
+            ADMIN_PASSWORD: ${AMIN_PASS}
+            PUBLIC_URL: https://${PUBLIC_URL}
             CORS_ENABLED: 'true'
         labels:
             - 'traefik.enable=true'
-            - 'traefik.http.routers.directus.rule=Host(`studiofloh.kommando.info`)'
+            - 'traefik.http.routers.directus.rule=Host(${PUBLIC_URL})'
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
 volumes:
