@@ -32,8 +32,3 @@ USER node
 # ENV TZ=Europe/Zurich
 # RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-
-# Create directory for ngingx configuration
-FROM nginx:latest 
-RUN mkdir -p /etc/nginx
-COPY nginx.conf /etc/nginx/nginx.conf
