@@ -35,6 +35,7 @@ services:
         image: redis:6
 
     directus:
+        container_name: directus-master
         image: directus/directus:10.11.1
         volumes:
             - ./my_uploads:/directus/uploads
@@ -79,6 +80,7 @@ services:
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
     directus_replica:
+        container_name: directus-replica
         image: directus/directus:10.11.1
         volumes:
             - ./my_uploads:/directus/uploads
