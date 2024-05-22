@@ -1,4 +1,4 @@
-FROM directus/directus:10.11
+FROM directus/directus:10.11.1
 
 # Switch to root user
 USER root
@@ -32,4 +32,4 @@ USER node
 # ENV TZ=Europe/Zurich
 # RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 FROM nginx:latest as final
-RUN cp nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
