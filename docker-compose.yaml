@@ -12,9 +12,6 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         labels:
-            - 'traefik.enable=true'
-            - 'traefik.http.routers.api.rule=Host(`traefik.local`)'
-            - 'traefik.http.routers.api.entrypoints=traefik'
             - 'traefik.http.routers.api.service=api@internal'
 
     database:
@@ -75,9 +72,6 @@ services:
             PUBLIC_URL: https://${PUBLIC_URL}
             CORS_ENABLED: 'true'
         labels:
-            - 'traefik.enable=true'
-            - 'traefik.http.routers.directus.rule=Host(`${PUBLIC_URL}`)'
-            - 'traefik.http.routers.directus.entrypoints=web'
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
     directus_replica:
@@ -118,9 +112,6 @@ services:
             PUBLIC_URL: https://${PUBLIC_URL}
             CORS_ENABLED: 'true'
         labels:
-            - 'traefik.enable=true'
-            - 'traefik.http.routers.directus.rule=Host(`${PUBLIC_URL}`)'
-            - 'traefik.http.routers.directus.entrypoints=web'
             - 'traefik.http.services.directus.loadbalancer.server.port=8055'
 
 volumes:
