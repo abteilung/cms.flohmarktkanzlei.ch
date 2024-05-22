@@ -27,7 +27,7 @@ services:
 
     directus:
         ports:
-            - '8055:8055'
+            - '8057:8055'
         container_name: directus-master
         image: directus/directus:10.11.1
         volumes:
