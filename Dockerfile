@@ -32,4 +32,4 @@ USER node
 # ENV TZ=Europe/Zurich
 # RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 FROM nginx:latest as final
-COPY nginx.conf /etc/nginx/nginx.conf
+RUN cp nginx.conf /etc/nginx/nginx.conf
