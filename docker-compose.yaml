@@ -3,7 +3,7 @@ services:
     nginx:
         image: nginx:latest
         volumes:
-            - ./data/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx.conf:/etc/nginx/nginx.conf
         ports:
             - '89:80'
         restart: always
@@ -36,6 +36,7 @@ services:
         depends_on:
             - cache
             - database
+            - nginx
         environment:
             TZ: ${TZ}
             KEY: '861255db-5996-5ea1-9aa3-922530ec40b1'
@@ -76,6 +77,10 @@ services:
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
+        depends_on:
+            - cache
+            - database
+            - nginx
         environment:
             TZ: ${TZ}
             KEY: 'd861b255-5996-5ea1-9aa3-922530ec40b1'
