@@ -5,7 +5,7 @@ services:
         volumes:
             - ./nginx.conf:/etc/nginx/nginx.conf
         ports:
-            - '80:80'
+            - '89:80'
         restart: always
 
     database:
