@@ -16,6 +16,7 @@ services:
             - 'traefik.http.routers.api.rule=Host(`traefik.local`)'
             - 'traefik.http.routers.api.entrypoints=traefik'
             - 'traefik.http.routers.api.service=api@internal'
+        restart: always
 
     database:
         container_name: database
@@ -59,7 +60,7 @@ services:
             EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
             EMAIL_FROM: ${EMAIL_FROM}
             DB_CLIENT: 'pg'
-            DB_HOST: 'database'
+            DB_HOST: 'databasesdafaf'
             DB_PORT: '5432'
             DB_DATABASE: 'directus'
             DB_USER: 'directus'
