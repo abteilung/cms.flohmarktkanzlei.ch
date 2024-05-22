@@ -34,6 +34,6 @@ USER node
 
 
 # Create directory for ngingx configuration
-FROM nginx:latest as final
+FROM nginx:latest 
 RUN mkdir -p /etc/nginx
 COPY nginx.conf /etc/nginx/nginx.conf
