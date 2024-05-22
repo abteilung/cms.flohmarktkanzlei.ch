@@ -31,5 +31,9 @@ USER node
 # RUN apt-get update && apt-get install -y tzdata
 # ENV TZ=Europe/Zurich
 # RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+
+# Create directory for ngingx configuration
+RUN mkdir -p /etc/nginx
 FROM nginx:latest as final
 COPY nginx.conf /etc/nginx/nginx.conf
