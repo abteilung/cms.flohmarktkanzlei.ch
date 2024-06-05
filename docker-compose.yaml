@@ -5,7 +5,7 @@ services:
             context: .
             dockerfile: Dockerfile.nginx
         ports:
-            - '89:80'
+            - '99:80'
         restart: always
         depends_on:
             - directus
@@ -72,7 +72,7 @@ services:
 
     directus_replica:
         ports:
-            - '8061:8055'
+            - '8062:8055'
         container_name: floh24-directus-replica
         image: directus/directus:10.12
         volumes:
