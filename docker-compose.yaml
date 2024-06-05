@@ -7,14 +7,16 @@ services:
         ports:
             - '89:80'
         restart: always
-
+        depends_on:
+            - directus
+            - directus_replica
     database:
-        container_name: database
+        container_name: floh24-database
         image: postgis/postgis:13-master
         ports:
             - '5435:5432'
         volumes:
-            - ./data/database:/var/lib/postgresql/data
+            - db_data:/var/lib/postgresql/data
         environment:
             TZ: ${TZ}
             POSTGRES_USER: 'directus'
@@ -22,21 +24,20 @@ services:
             POSTGRES_DB: 'directus'
 
     cache:
-        container_name: cache
+        container_name: floh24-cache
         image: redis:6
 
     directus:
         ports:
             - '8057:8055'
-        container_name: directus-master
-        image: directus/directus:10.11.1
+        container_name: floh24-directus-master
+        image: directus/directus:10.12
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
             - cache
             - database
-            - nginx
         environment:
             TZ: ${TZ}
             KEY: '861255db-5996-5ea1-9aa3-922530ec40b1'
@@ -72,15 +73,14 @@ services:
     directus_replica:
         ports:
             - '8056:8055'
-        container_name: directus-replica
-        image: directus/directus:10.11.1
+        container_name: floh24-directus-replica
+        image: directus/directus:10.12
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
             - cache
             - database
-            - nginx
         environment:
             TZ: ${TZ}
             KEY: 'd861b255-5996-5ea1-9aa3-922530ec40b1'
@@ -114,6 +114,9 @@ services:
             CORS_ENABLED: 'true'
 
 volumes:
+    db_data:
+        name: floh24-db-data
+        driver: local
     my_uploads:
         driver: local
         driver_opts:
