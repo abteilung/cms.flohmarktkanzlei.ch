@@ -44,6 +44,9 @@ services:
         ports:
             - '8061:8055'
         container_name: floh24-directus-master
+        build:
+            context: .
+            dockerfile: Dockerfile
         image: directus/directus:10.12
         volumes:
             - ./my_uploads:/directus/uploads
@@ -87,6 +90,9 @@ services:
         ports:
             - '8062:8055'
         container_name: floh24-directus-replica
+        build:
+            context: .
+            dockerfile: Dockerfile
         image: directus/directus:10.12
         volumes:
             - ./my_uploads:/directus/uploads
