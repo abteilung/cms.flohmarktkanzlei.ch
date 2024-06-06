@@ -10,6 +10,13 @@ services:
         depends_on:
             - directus
             - directus_replica
+        # Optional: Füge healthcheck hinzu, um sicherzustellen, dass Directus bereit ist
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://directus:8055/health']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
     database:
         container_name: floh24-database
         image: postgis/postgis:13-master
@@ -22,6 +29,12 @@ services:
             POSTGRES_USER: 'directus'
             POSTGRES_PASSWORD: 'directus'
             POSTGRES_DB: 'directus'
+        # Optional: Füge healthcheck hinzu, um sicherzustellen, dass die Datenbank bereit ist
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U directus']
+            interval: 30s
+            timeout: 10s
+            retries: 5
 
     cache:
         container_name: floh24-cache
