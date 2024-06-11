@@ -11,6 +11,7 @@ RUN cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime && echo "Europe/Zurich" 
 
 # Switch back to the original user
 USER node
+
 # FROM directus/directus:10.10.5
 # USER root
 # RUN corepack enable \
