@@ -9,8 +9,17 @@ RUN apk add --no-cache tzdata
 # Set the timezone
 RUN cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime && echo "Europe/Zurich" > /etc/timezone
 
+# # Copy the entrypoint script into the container
+# COPY entrypoint.sh /entrypoint.sh
+
+# # Ensure the entrypoint script has execution permissions
+# RUN chmod +x /entrypoint.sh
+
 # Switch back to the original user
 USER node
+
+# Set the entrypoint
+# ENTRYPOINT ["/entrypoint.sh"]
 
 # FROM directus/directus:10.10.5
 # USER root
