@@ -137,7 +137,7 @@ services:
     directus_trinity:
         ports:
             - '8063:8055'
-        container_name: floh24-directus-replica
+        container_name: floh24-directus-trinity
         build:
             context: .
             dockerfile: Dockerfile
@@ -183,7 +183,7 @@ services:
     directus_quart:
         ports:
             - '8064:8055'
-        container_name: floh24-directus-replica
+        container_name: floh24-directus-quart
         build:
             context: .
             dockerfile: Dockerfile
