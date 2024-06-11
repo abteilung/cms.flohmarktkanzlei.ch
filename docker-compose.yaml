@@ -100,8 +100,7 @@ services:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
-            - cache
-            - database
+            - directus
         environment:
             TZ: ${TZ}
             KEY: 'd861b255-5996-5ea1-9aa3-922530ec40b1'
@@ -141,13 +140,12 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12.1
+        # image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
-            - cache
-            - database
+            - directus_replica
         environment:
             TZ: ${TZ}
             KEY: 'b25d8615-9596-5ea1-9aa3-922530ec40b1'
@@ -187,13 +185,12 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12.1
+        # image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
-            - cache
-            - database
+            - directus_trinity
         environment:
             TZ: ${TZ}
             KEY: '255d861b-5996-5ea1-9a3a-922530ec40b1'
