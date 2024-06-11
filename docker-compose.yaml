@@ -134,97 +134,97 @@ services:
             PUBLIC_URL: https://${PUBLIC_URL}
             CORS_ENABLED: 'true'
 
-    directus_trinity:
-        ports:
-            - '8063:8055'
-        container_name: floh24-directus-trinity
-        build:
-            context: .
-            dockerfile: Dockerfile
-        image: directus/directus:10.12.1
-        volumes:
-            - ./my_uploads:/directus/uploads
-            - ./my_extensions:/directus/extensions
-        depends_on:
-            - cache
-            - database
-        environment:
-            TZ: ${TZ}
-            KEY: 'b25d8615-9596-5ea1-9aa3-922530ec40b1'
-            SECRET: 'b6116487-b5b5-5c22-cda1-c8022c45e263'
-            WEBSOCKETS_ENABLED: 'true'
-            EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
-            EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
-            EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
-            EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
-            EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
-            EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
-            EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
-            EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
-            EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
-            EMAIL_FROM: ${EMAIL_FROM}
-            DB_CLIENT: 'pg'
-            DB_HOST: 'database'
-            DB_PORT: '5432'
-            DB_DATABASE: 'directus'
-            DB_USER: 'directus'
-            DB_PASSWORD: 'directus'
-            CACHE_ENABLED: 'true'
-            CACHE_AUTO_PURGE: 'true'
-            CACHE_TTL: '15m'
-            CACHE_STORE: 'redis'
-            ASSETS_CACHE_TTL: '300d'
-            REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${ADMIN_PASS}
-            PUBLIC_URL: https://${PUBLIC_URL}
-            CORS_ENABLED: 'true'
+    # directus_trinity:
+    #     ports:
+    #         - '8063:8055'
+    #     container_name: floh24-directus-trinity
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile
+    #     image: directus/directus:10.12.1
+    #     volumes:
+    #         - ./my_uploads:/directus/uploads
+    #         - ./my_extensions:/directus/extensions
+    #     depends_on:
+    #         - cache
+    #         - database
+    #     environment:
+    #         TZ: ${TZ}
+    #         KEY: 'b25d8615-9596-5ea1-9aa3-922530ec40b1'
+    #         SECRET: 'b6116487-b5b5-5c22-cda1-c8022c45e263'
+    #         WEBSOCKETS_ENABLED: 'true'
+    #         EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
+    #         EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
+    #         EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
+    #         EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
+    #         EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
+    #         EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
+    #         EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
+    #         EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
+    #         EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
+    #         EMAIL_FROM: ${EMAIL_FROM}
+    #         DB_CLIENT: 'pg'
+    #         DB_HOST: 'database'
+    #         DB_PORT: '5432'
+    #         DB_DATABASE: 'directus'
+    #         DB_USER: 'directus'
+    #         DB_PASSWORD: 'directus'
+    #         CACHE_ENABLED: 'true'
+    #         CACHE_AUTO_PURGE: 'true'
+    #         CACHE_TTL: '15m'
+    #         CACHE_STORE: 'redis'
+    #         ASSETS_CACHE_TTL: '300d'
+    #         REDIS: 'redis://cache:6379'
+    #         ADMIN_EMAIL: ${ADMIN_EMAIL}
+    #         ADMIN_PASSWORD: ${ADMIN_PASS}
+    #         PUBLIC_URL: https://${PUBLIC_URL}
+    #         CORS_ENABLED: 'true'
 
-    directus_quart:
-        ports:
-            - '8064:8055'
-        container_name: floh24-directus-quart
-        build:
-            context: .
-            dockerfile: Dockerfile
-        image: directus/directus:10.12.1
-        volumes:
-            - ./my_uploads:/directus/uploads
-            - ./my_extensions:/directus/extensions
-        depends_on:
-            - cache
-            - database
-        environment:
-            TZ: ${TZ}
-            KEY: '255d861b-5996-5ea1-9a3a-922530ec40b1'
-            SECRET: 'b1661487-b5b5-52c2-acd1-c8022c45e263'
-            WEBSOCKETS_ENABLED: 'true'
-            EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
-            EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
-            EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
-            EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
-            EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
-            EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
-            EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
-            EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
-            EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
-            EMAIL_FROM: ${EMAIL_FROM}
-            DB_CLIENT: 'pg'
-            DB_HOST: 'database'
-            DB_PORT: '5432'
-            DB_DATABASE: 'directus'
-            DB_USER: 'directus'
-            DB_PASSWORD: 'directus'
-            CACHE_ENABLED: 'true'
-            CACHE_AUTO_PURGE: 'true'
-            CACHE_TTL: '15m'
-            CACHE_STORE: 'redis'
-            ASSETS_CACHE_TTL: '300d'
-            REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${ADMIN_PASS}
-            PUBLIC_URL: https://${PUBLIC_URL}
-            CORS_ENABLED: 'true'
+    # directus_quart:
+    #     ports:
+    #         - '8064:8055'
+    #     container_name: floh24-directus-quart
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile
+    #     image: directus/directus:10.12.1
+    #     volumes:
+    #         - ./my_uploads:/directus/uploads
+    #         - ./my_extensions:/directus/extensions
+    #     depends_on:
+    #         - cache
+    #         - database
+    #     environment:
+    #         TZ: ${TZ}
+    #         KEY: '255d861b-5996-5ea1-9a3a-922530ec40b1'
+    #         SECRET: 'b1661487-b5b5-52c2-acd1-c8022c45e263'
+    #         WEBSOCKETS_ENABLED: 'true'
+    #         EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
+    #         EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
+    #         EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
+    #         EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
+    #         EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
+    #         EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
+    #         EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
+    #         EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
+    #         EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
+    #         EMAIL_FROM: ${EMAIL_FROM}
+    #         DB_CLIENT: 'pg'
+    #         DB_HOST: 'database'
+    #         DB_PORT: '5432'
+    #         DB_DATABASE: 'directus'
+    #         DB_USER: 'directus'
+    #         DB_PASSWORD: 'directus'
+    #         CACHE_ENABLED: 'true'
+    #         CACHE_AUTO_PURGE: 'true'
+    #         CACHE_TTL: '15m'
+    #         CACHE_STORE: 'redis'
+    #         ASSETS_CACHE_TTL: '300d'
+    #         REDIS: 'redis://cache:6379'
+    #         ADMIN_EMAIL: ${ADMIN_EMAIL}
+    #         ADMIN_PASSWORD: ${ADMIN_PASS}
+    #         PUBLIC_URL: https://${PUBLIC_URL}
+    #         CORS_ENABLED: 'true'
 
 volumes:
     my_uploads:
