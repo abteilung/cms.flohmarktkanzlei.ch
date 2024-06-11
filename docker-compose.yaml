@@ -7,17 +7,17 @@ services:
         ports:
             - '99:80'
         restart: always
-        # depends_on:
-        # - directus
+        depends_on:
+            - directus_quart
         # - directus_replica
         # - directus_trinity
         # - directus_quart
         # Optional: Füge healthcheck hinzu, um sicherzustellen, dass Directus bereit ist
-        # healthcheck:
-        #     test: ['CMD', 'curl', '-f', 'http://directus:8055/health']
-        #     interval: 30s
-        #     timeout: 10s
-        #     retries: 3
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://directus:8055/health']
+            interval: 30s
+            timeout: 10s
+            retries: 3
 
     database:
         container_name: floh24-database
@@ -32,11 +32,11 @@ services:
             POSTGRES_PASSWORD: 'directus'
             POSTGRES_DB: 'directus'
         # Optional: Füge healthcheck hinzu, um sicherzustellen, dass die Datenbank bereit ist
-        # healthcheck:
-        #     test: ['CMD-SHELL', 'pg_isready -U directus']
-        #     interval: 30s
-        #     timeout: 10s
-        #     retries: 5
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U directus']
+            interval: 30s
+            timeout: 10s
+            retries: 5
 
     cache:
         container_name: floh24-cache
