@@ -2,9 +2,9 @@ version: '3'
 services:
     nginx:
         image: nginx:1.21
-        build:
-            context: ./
-            dockerfile: Dockerfile.nginx
+        # build:
+        #     context: ./
+        #     dockerfile: Dockerfile.nginx
         ports:
             - '99:80'
         restart: always
