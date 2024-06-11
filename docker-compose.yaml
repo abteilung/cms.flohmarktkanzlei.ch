@@ -10,6 +10,8 @@ services:
         depends_on:
             - directus
             - directus_replica
+            - directus_trinity
+            - directus_quart
         # Optional: Füge healthcheck hinzu, um sicherzustellen, dass Directus bereit ist
         # healthcheck:
         #     test: ['CMD', 'curl', '-f', 'http://directus:8055/health']
@@ -47,7 +49,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12
+        image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
@@ -93,7 +95,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12
+        image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
@@ -139,7 +141,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12
+        image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
@@ -148,8 +150,8 @@ services:
             - database
         environment:
             TZ: ${TZ}
-            KEY: 'd861b255-5996-5ea1-9aa3-922530ec40b1'
-            SECRET: '16487b61-b5b5-52c2-cda1-c8022c45e263'
+            KEY: 'b25d8615-9596-5ea1-9aa3-922530ec40b1'
+            SECRET: 'b6116487-b5b5-5c22-cda1-c8022c45e263'
             WEBSOCKETS_ENABLED: 'true'
             EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
             EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
@@ -185,7 +187,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12
+        image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
@@ -194,8 +196,8 @@ services:
             - database
         environment:
             TZ: ${TZ}
-            KEY: 'd861b255-5996-5ea1-9aa3-922530ec40b1'
-            SECRET: '16487b61-b5b5-52c2-cda1-c8022c45e263'
+            KEY: '255d861b-5996-5ea1-9a3a-922530ec40b1'
+            SECRET: 'b1661487-b5b5-52c2-acd1-c8022c45e263'
             WEBSOCKETS_ENABLED: 'true'
             EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
             EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
