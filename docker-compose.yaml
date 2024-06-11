@@ -49,7 +49,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12.1
+        # image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
@@ -95,7 +95,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12.1
+        # image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
@@ -141,7 +141,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12.1
+        # image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
@@ -187,7 +187,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: directus/directus:10.12.1
+        # image: directus/directus:10.12.1
         volumes:
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
