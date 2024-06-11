@@ -1,10 +1,10 @@
 
-# Create directory for ngingx configuration
-# Start from the official nginx image
-FROM nginx:1.21
+# # Create directory for ngingx configuration
+# # Start from the official nginx image
+# FROM nginx:1.21
 
-# Create the necessary directory for nginx.conf
-RUN mkdir -p /etc/nginx/conf.d
+# # Create the necessary directory for nginx.conf
+# RUN mkdir -p /etc/nginx/conf.d
 
-# Copy the local nginx.conf to the container
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# # Copy the local nginx.conf to the container
+# COPY ./nginx.conf /etc/nginx/nginx.conf
