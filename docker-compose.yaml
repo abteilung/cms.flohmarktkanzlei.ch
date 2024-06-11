@@ -7,11 +7,11 @@ services:
         ports:
             - '99:80'
         restart: always
-        # depends_on:
-        # - directus
-        # - directus_replica
-        # - directus_trinity
-        # - directus_quart
+        depends_on:
+            # - directus
+            # - directus_replica
+            # - directus_trinity
+            - directus_quart
         # Optional: Füge healthcheck hinzu, um sicherzustellen, dass Directus bereit ist
         # healthcheck:
         #     test: ['CMD', 'curl', '-f', 'http://directus:8055/health']
@@ -43,14 +43,12 @@ services:
         image: redis:6
 
     directus:
+        image: directus/directus:10.12.1
         ports:
             - '8061:8055'
         container_name: floh24-directus-master
-        build:
-            context: .
-            dockerfile: Dockerfile
-        # image: directus/directus:10.12.1
         volumes:
+            - ./start.sh:/start.sh
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
@@ -89,14 +87,12 @@ services:
             CORS_ENABLED: 'true'
 
     directus_replica:
+        image: directus/directus:10.12.1
         ports:
             - '8062:8055'
         container_name: floh24-directus-replica
-        build:
-            context: .
-            dockerfile: Dockerfile
-        # image: directus/directus:10.12.1
         volumes:
+            - ./start.sh:/start.sh
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
@@ -134,14 +130,12 @@ services:
             CORS_ENABLED: 'true'
 
     directus_trinity:
+        image: directus/directus:10.12.1
         ports:
             - '8063:8055'
         container_name: floh24-directus-trinity
-        build:
-            context: .
-            dockerfile: Dockerfile
-        # image: directus/directus:10.12.1
         volumes:
+            - ./start.sh:/start.sh
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
@@ -179,14 +173,12 @@ services:
             CORS_ENABLED: 'true'
 
     directus_quart:
+        image: directus/directus:10.12.1
         ports:
             - '8064:8055'
         container_name: floh24-directus-quart
-        build:
-            context: .
-            dockerfile: Dockerfile
-        # image: directus/directus:10.12.1
         volumes:
+            - ./start.sh:/start.sh
             - ./my_uploads:/directus/uploads
             - ./my_extensions:/directus/extensions
         depends_on:
