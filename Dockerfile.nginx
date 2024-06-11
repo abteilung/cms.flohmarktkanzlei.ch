@@ -1,7 +1,7 @@
 
 # Create directory for ngingx configuration
 # Start from the official nginx image
-FROM nginx:latest
+FROM nginx:1.21
 
 # Create the necessary directory for nginx.conf
 RUN mkdir -p /etc/nginx/conf.d
