@@ -2,7 +2,7 @@ version: '3'
 services:
     nginx:
         build:
-            context: .
+            context: ./
             dockerfile: Dockerfile.nginx
         ports:
             - '99:80'
@@ -47,7 +47,7 @@ services:
             - '8061:8055'
         container_name: floh24-directus-master
         build:
-            context: .
+            context: ./
             dockerfile: Dockerfile
         image: directus/directus:10.12.1
         volumes:
