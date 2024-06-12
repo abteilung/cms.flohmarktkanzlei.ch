@@ -11,7 +11,7 @@ services:
             # - directus
             # - directus_replica
             # - directus_trinity
-            - directus_quart
+            - directus
         # Optional: Füge healthcheck hinzu, um sicherzustellen, dass Directus bereit ist
         # healthcheck:
         #     test: ['CMD', 'curl', '-f', 'http://directus:8055/health']
