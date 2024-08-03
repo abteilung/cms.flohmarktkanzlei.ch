@@ -259,7 +259,7 @@ services:
     directus_quint:
         image: directus/directus:10.13.1
         ports:
-            - '8061:8055'
+            - '8060:8055'
         container_name: floh24-directus-quint
         volumes:
             - ./start.sh:/start.sh
