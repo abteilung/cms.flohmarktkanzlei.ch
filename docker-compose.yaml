@@ -52,7 +52,7 @@ services:
             retries: 10
 
     directus:
-        image: directus/directus:11.4
+        image: directus/directus:11.5
         ports:
             - '8061:8055'
         container_name: floh24-directus-master
@@ -106,7 +106,7 @@ services:
             retries: 5
 
     directus_replica:
-        image: directus/directus:11.4
+        image: directus/directus:11.5
         ports:
             - '8062:8055'
         container_name: floh24-directus-replica
@@ -159,7 +159,7 @@ services:
             retries: 5
 
     directus_trinity:
-        image: directus/directus:11.4
+        image: directus/directus:11.5
         ports:
             - '8063:8055'
         container_name: floh24-directus-trinity
@@ -212,7 +212,7 @@ services:
             retries: 5
 
     directus_quart:
-        image: directus/directus:11.4
+        image: directus/directus:11.5
         ports:
             - '8064:8055'
         container_name: floh24-directus-quart
@@ -265,7 +265,7 @@ services:
             retries: 5
 
     directus_quint:
-        image: directus/directus:11.4
+        image: directus/directus:11.5
         ports:
             - '8060:8055'
         container_name: floh24-directus-quint
