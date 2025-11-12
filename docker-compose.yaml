@@ -48,11 +48,11 @@ services:
                 - redis-cli
                 - ping
             interval: 5s
-            timeout: 20s 
+            timeout: 20s
             retries: 10
 
     directus:
-        image: directus/directus:11.7
+        image: directus/directus:11.8
         ports:
             - '8061:8055'
         container_name: floh24-directus-master
@@ -64,6 +64,7 @@ services:
             - cache
             - database
         environment:
+            FLOWS_EXEC_ALLOWED: 'true'
             TZ: ${TZ}
             KEY: '861255db-5996-5ea1-9aa3-922530ec40b1'
             SECRET: '6487b611-b5b5-52c2-cda1-c8022c45e263'
@@ -106,7 +107,7 @@ services:
             retries: 5
 
     directus_replica:
-        image: directus/directus:11.7
+        image: directus/directus:11.8
         ports:
             - '8062:8055'
         container_name: floh24-directus-replica
@@ -117,6 +118,7 @@ services:
         depends_on:
             - directus
         environment:
+            FLOWS_EXEC_ALLOWED: 'false'
             TZ: ${TZ}
             KEY: 'd861b255-5996-5ea1-9aa3-922530ec40b1'
             SECRET: '16487b61-b5b5-52c2-cda1-c8022c45e263'
@@ -159,7 +161,7 @@ services:
             retries: 5
 
     directus_trinity:
-        image: directus/directus:11.7
+        image: directus/directus:11.8
         ports:
             - '8063:8055'
         container_name: floh24-directus-trinity
@@ -170,6 +172,7 @@ services:
         depends_on:
             - directus_replica
         environment:
+            FLOWS_EXEC_ALLOWED: 'false'
             TZ: ${TZ}
             KEY: 'b25d8615-9596-5ea1-9aa3-922530ec40b1'
             SECRET: 'b6116487-b5b5-5c22-cda1-c8022c45e263'
@@ -212,7 +215,7 @@ services:
             retries: 5
 
     directus_quart:
-        image: directus/directus:11.7
+        image: directus/directus:11.8
         ports:
             - '8064:8055'
         container_name: floh24-directus-quart
@@ -223,6 +226,7 @@ services:
         depends_on:
             - directus_trinity
         environment:
+            FLOWS_EXEC_ALLOWED: 'false'
             TZ: ${TZ}
             KEY: '255d861b-5996-5ea1-9a3a-922530ec40b1'
             SECRET: 'b1661487-b5b5-52c2-acd1-c8022c45e263'
@@ -265,7 +269,7 @@ services:
             retries: 5
 
     directus_quint:
-        image: directus/directus:11.7
+        image: directus/directus:11.8
         ports:
             - '8060:8055'
         container_name: floh24-directus-quint
@@ -276,6 +280,7 @@ services:
         depends_on:
             - directus_trinity
         environment:
+            FLOWS_EXEC_ALLOWED: 'false'
             TZ: ${TZ}
             KEY: '5d25861b-9659-ea51-9a3a-40b922530ec1'
             SECRET: '661b1487-5bb5-2c52-cda1-0c82452ce263'
