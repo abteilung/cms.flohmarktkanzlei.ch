@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.directus.io)",
+      "WebFetch(domain:directus.io)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
