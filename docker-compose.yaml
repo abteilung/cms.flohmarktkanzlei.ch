@@ -64,8 +64,8 @@ services:
             - cache
             - database
         environment:
-            MESSENGER_STORE: redis
-            MESSENGER_NAMESPACE: directus_messenger
+            SYNCHRONIZATION_STORE: redis
+            SYNCHRONIZATION_NAMESPACE: directus-sync
             TZ: ${TZ}
             KEY: '861255db-5996-5ea1-9aa3-922530ec40b1'
             SECRET: '6487b611-b5b5-52c2-cda1-c8022c45e263'
@@ -119,8 +119,8 @@ services:
         depends_on:
             - directus
         environment:
-            MESSENGER_STORE: redis
-            MESSENGER_NAMESPACE: directus_messenger
+            SYNCHRONIZATION_STORE: redis
+            SYNCHRONIZATION_NAMESPACE: directus-sync
             TZ: ${TZ}
             KEY: 'd861b255-5996-5ea1-9aa3-922530ec40b1'
             SECRET: '16487b61-b5b5-52c2-cda1-c8022c45e263'
@@ -174,8 +174,8 @@ services:
         depends_on:
             - directus_replica
         environment:
-            MESSENGER_STORE: redis
-            MESSENGER_NAMESPACE: directus_messenger
+            SYNCHRONIZATION_STORE: redis
+            SYNCHRONIZATION_NAMESPACE: directus-sync
             TZ: ${TZ}
             KEY: 'b25d8615-9596-5ea1-9aa3-922530ec40b1'
             SECRET: 'b6116487-b5b5-5c22-cda1-c8022c45e263'
@@ -229,8 +229,8 @@ services:
         depends_on:
             - directus_trinity
         environment:
-            MESSENGER_STORE: redis
-            MESSENGER_NAMESPACE: directus_messenger
+            SYNCHRONIZATION_STORE: redis
+            SYNCHRONIZATION_NAMESPACE: directus-sync
             TZ: ${TZ}
             KEY: '255d861b-5996-5ea1-9a3a-922530ec40b1'
             SECRET: 'b1661487-b5b5-52c2-acd1-c8022c45e263'
@@ -284,8 +284,8 @@ services:
         depends_on:
             - directus_trinity
         environment:
-            MESSENGER_STORE: redis
-            MESSENGER_NAMESPACE: directus_messenger
+            SYNCHRONIZATION_STORE: redis
+            SYNCHRONIZATION_NAMESPACE: directus-sync
             TZ: ${TZ}
             KEY: '5d25861b-9659-ea51-9a3a-40b922530ec1'
             SECRET: '661b1487-5bb5-2c52-cda1-0c82452ce263'
