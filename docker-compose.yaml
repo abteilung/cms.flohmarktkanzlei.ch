@@ -1,342 +1,382 @@
-version: '3'
+version: "3"
 services:
-    nginx:
-        build:
-            context: .
-            dockerfile: Dockerfile.nginx
-        ports:
-            - '99:80'
-        restart: always
-        depends_on:
-            directus:
-                condition: service_healthy
-            directus_replica:
-                condition: service_healthy
-            directus_trinity:
-                condition: service_healthy
-            directus_quart:
-                condition: service_healthy
-            directus_quint:
-                condition: service_healthy
-        # Keine Healtcheck-Option, da Nginx nicht direkt von Directus abhängt
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "99:80"
+    restart: always
+    depends_on:
+      directus:
+        condition: service_healthy
+      directus_replica:
+        condition: service_healthy
+      directus_trinity:
+        condition: service_healthy
+      directus_quart:
+        condition: service_healthy
+      directus_quint:
+        condition: service_healthy
+    # Keine Healtcheck-Option, da Nginx nicht direkt von Directus abhängt
 
-    database:
-        container_name: floh24-database
-        image: postgis/postgis:13-master
-        ports:
-            - '5437:5432'
-        volumes:
-            - ./data/database:/var/lib/postgresql/data
-        environment:
-            TZ: ${TZ}
-            POSTGRES_USER: ${DB_USER}
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-            POSTGRES_DB: ${DB_DATABASE}
-        # Optional: Füge healthcheck hinzu, um sicherzustellen, dass die Datenbank bereit ist
-        healthcheck:
-            test: ['CMD-SHELL', 'pg_isready -U directus']
-            interval: 30s
-            timeout: 10s
-            retries: 5
+  database:
+    container_name: floh24-database
+    image: postgis/postgis:13-master
+    ports:
+      - "5437:5432"
+    volumes:
+      - ./data/database:/var/lib/postgresql/data
+    environment:
+      TZ: ${TZ}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    # Optional: Füge healthcheck hinzu, um sicherzustellen, dass die Datenbank bereit ist
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U directus"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
-    cache:
-        container_name: floh24-cache
-        image: redis:6
-        healthcheck:
-            test:
-                - CMD
-                - redis-cli
-                - ping
-            interval: 5s
-            timeout: 20s
-            retries: 10
+  cache:
+    container_name: floh24-cache
+    image: redis:6
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      interval: 5s
+      timeout: 20s
+      retries: 10
 
-    directus:
-        image: directus/directus:11.13
-        ports:
-            - '8061:8055'
-        container_name: floh24-directus-master
-        volumes:
-            - ./start.sh:/start.sh
-            - ./my_uploads:/directus/uploads
-            - ./my_extensions:/directus/extensions
-        depends_on:
-            - cache
-            - database
-        environment:
-            SYNCHRONIZATION_STORE: redis
-            SYNCHRONIZATION_NAMESPACE: directus-sync
-            TZ: ${TZ}
-            KEY: '861255db-5996-5ea1-9aa3-922530ec40b1'
-            SECRET: '6487b611-b5b5-52c2-cda1-c8022c45e263'
-            WEBSOCKETS_ENABLED: 'true'
-            EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
-            EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
-            EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
-            EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
-            EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
-            EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
-            EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
-            EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
-            EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
-            EMAIL_FROM: ${EMAIL_FROM}
-            DB_CLIENT: 'pg'
-            DB_HOST: 'database'
-            DB_PORT: '5432'
-            DB_DATABASE: ${DB_DATABASE}
-            DB_USER: ${DB_USER}
-            DB_PASSWORD: ${DB_PASSWORD}
-            CACHE_ENABLED: 'true'
-            CACHE_AUTO_PURGE: 'true'
-            CACHE_TTL: '15m'
-            CACHE_STORE: 'redis'
-            ASSETS_CACHE_TTL: '300d'
-            REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${ADMIN_PASS}
-            PUBLIC_URL: https://${PUBLIC_URL}
-            CORS_ENABLED: 'true'
-        healthcheck:
-            test:
-                - CMD
-                - wget
-                - '-q'
-                - '--spider'
-                - 'http://127.0.0.1:8055/server/health'
-            interval: 60s
-            timeout: 10s
-            retries: 5
+  directus:
+    image: directus/directus:11.13
+    ports:
+      - "8061:8055"
+    container_name: floh24-directus-master
+    volumes:
+      - ./start.sh:/start.sh
+      - ./my_uploads:/directus/uploads
+      - ./my_extensions:/directus/extensions
+    depends_on:
+      - cache
+      - database
+    environment:
+      SYNCHRONIZATION_STORE: redis
+      SYNCHRONIZATION_NAMESPACE: directus-sync
+      TZ: ${TZ}
+      KEY: "861255db-5996-5ea1-9aa3-922530ec40b1"
+      SECRET: "6487b611-b5b5-52c2-cda1-c8022c45e263"
+      WEBSOCKETS_ENABLED: "true"
+      EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
+      EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
+      EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
+      EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
+      EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
+      EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
+      EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
+      EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
+      EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
+      EMAIL_FROM: ${EMAIL_FROM}
+      DB_CLIENT: "pg"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CACHE_ENABLED: "true"
+      CACHE_AUTO_PURGE: "true"
+      CACHE_TTL: "15m"
+      CACHE_STORE: "redis"
+      ASSETS_CACHE_TTL: "300d"
+      REDIS: "redis://cache:6379"
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASS}
+      PUBLIC_URL: https://${PUBLIC_URL}
+      CORS_ENABLED: "true"
+      AUTH_PROVIDERS: ${AUTH_PROVIDERS}
+      AUTH_GOOGLE_DRIVER: ${AUTH_GOOGLE_DRIVER}
+      AUTH_GOOGLE_CLIENT_ID: ${AUTH_GOOGLE_CLIENT_ID}
+      AUTH_GOOGLE_CLIENT_SECRET: ${AUTH_GOOGLE_CLIENT_SECRET}
+      AUTH_GOOGLE_ISSUER_URL: ${AUTH_GOOGLE_ISSUER_URL}
+      AUTH_GOOGLE_IDENTIFIER_KEY: ${AUTH_GOOGLE_IDENTIFIER_KEY}
+      AUTH_GOOGLE_ICON: ${AUTH_GOOGLE_ICON}
+      AUTH_GOOGLE_LABEL: ${AUTH_GOOGLE_LABEL}
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - "-q"
+        - "--spider"
+        - "http://127.0.0.1:8055/server/health"
+      interval: 60s
+      timeout: 10s
+      retries: 5
 
-    directus_replica:
-        image: directus/directus:11.13
-        ports:
-            - '8062:8055'
-        container_name: floh24-directus-replica
-        volumes:
-            - ./start.sh:/start.sh
-            - ./my_uploads:/directus/uploads
-            - ./my_extensions:/directus/extensions
-        depends_on:
-            - directus
-        environment:
-            SYNCHRONIZATION_STORE: redis
-            SYNCHRONIZATION_NAMESPACE: directus-sync
-            TZ: ${TZ}
-            KEY: 'd861b255-5996-5ea1-9aa3-922530ec40b1'
-            SECRET: '16487b61-b5b5-52c2-cda1-c8022c45e263'
-            WEBSOCKETS_ENABLED: 'true'
-            EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
-            EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
-            EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
-            EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
-            EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
-            EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
-            EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
-            EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
-            EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
-            EMAIL_FROM: ${EMAIL_FROM}
-            DB_CLIENT: 'pg'
-            DB_HOST: 'database'
-            DB_PORT: '5432'
-            DB_DATABASE: ${DB_DATABASE}
-            DB_USER: ${DB_USER}
-            DB_PASSWORD: ${DB_PASSWORD}
-            CACHE_ENABLED: 'true'
-            CACHE_AUTO_PURGE: 'true'
-            CACHE_TTL: '15m'
-            CACHE_STORE: 'redis'
-            ASSETS_CACHE_TTL: '300d'
-            REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${ADMIN_PASS}
-            PUBLIC_URL: https://${PUBLIC_URL}
-            CORS_ENABLED: 'true'
-        healthcheck:
-            test:
-                - CMD
-                - wget
-                - '-q'
-                - '--spider'
-                - 'http://127.0.0.1:8055/server/health'
-            interval: 60s
-            timeout: 10s
-            retries: 5
+  directus_replica:
+    image: directus/directus:11.13
+    ports:
+      - "8062:8055"
+    container_name: floh24-directus-replica
+    volumes:
+      - ./start.sh:/start.sh
+      - ./my_uploads:/directus/uploads
+      - ./my_extensions:/directus/extensions
+    depends_on:
+      - directus
+    environment:
+      SYNCHRONIZATION_STORE: redis
+      SYNCHRONIZATION_NAMESPACE: directus-sync
+      TZ: ${TZ}
+      KEY: "d861b255-5996-5ea1-9aa3-922530ec40b1"
+      SECRET: "16487b61-b5b5-52c2-cda1-c8022c45e263"
+      WEBSOCKETS_ENABLED: "true"
+      EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
+      EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
+      EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
+      EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
+      EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
+      EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
+      EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
+      EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
+      EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
+      EMAIL_FROM: ${EMAIL_FROM}
+      DB_CLIENT: "pg"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CACHE_ENABLED: "true"
+      CACHE_AUTO_PURGE: "true"
+      CACHE_TTL: "15m"
+      CACHE_STORE: "redis"
+      ASSETS_CACHE_TTL: "300d"
+      REDIS: "redis://cache:6379"
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASS}
+      PUBLIC_URL: https://${PUBLIC_URL}
+      CORS_ENABLED: "true"
+      AUTH_PROVIDERS: ${AUTH_PROVIDERS}
+      AUTH_GOOGLE_DRIVER: ${AUTH_GOOGLE_DRIVER}
+      AUTH_GOOGLE_CLIENT_ID: ${AUTH_GOOGLE_CLIENT_ID}
+      AUTH_GOOGLE_CLIENT_SECRET: ${AUTH_GOOGLE_CLIENT_SECRET}
+      AUTH_GOOGLE_ISSUER_URL: ${AUTH_GOOGLE_ISSUER_URL}
+      AUTH_GOOGLE_IDENTIFIER_KEY: ${AUTH_GOOGLE_IDENTIFIER_KEY}
+      AUTH_GOOGLE_ICON: ${AUTH_GOOGLE_ICON}
+      AUTH_GOOGLE_LABEL: ${AUTH_GOOGLE_LABEL}
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - "-q"
+        - "--spider"
+        - "http://127.0.0.1:8055/server/health"
+      interval: 60s
+      timeout: 10s
+      retries: 5
 
-    directus_trinity:
-        image: directus/directus:11.13
-        ports:
-            - '8063:8055'
-        container_name: floh24-directus-trinity
-        volumes:
-            - ./start.sh:/start.sh
-            - ./my_uploads:/directus/uploads
-            - ./my_extensions:/directus/extensions
-        depends_on:
-            - directus_replica
-        environment:
-            SYNCHRONIZATION_STORE: redis
-            SYNCHRONIZATION_NAMESPACE: directus-sync
-            TZ: ${TZ}
-            KEY: 'b25d8615-9596-5ea1-9aa3-922530ec40b1'
-            SECRET: 'b6116487-b5b5-5c22-cda1-c8022c45e263'
-            WEBSOCKETS_ENABLED: 'true'
-            EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
-            EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
-            EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
-            EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
-            EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
-            EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
-            EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
-            EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
-            EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
-            EMAIL_FROM: ${EMAIL_FROM}
-            DB_CLIENT: 'pg'
-            DB_HOST: 'database'
-            DB_PORT: '5432'
-            DB_DATABASE: ${DB_DATABASE}
-            DB_USER: ${DB_USER}
-            DB_PASSWORD: ${DB_PASSWORD}
-            CACHE_ENABLED: 'true'
-            CACHE_AUTO_PURGE: 'true'
-            CACHE_TTL: '15m'
-            CACHE_STORE: 'redis'
-            ASSETS_CACHE_TTL: '300d'
-            REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${ADMIN_PASS}
-            PUBLIC_URL: https://${PUBLIC_URL}
-            CORS_ENABLED: 'true'
-        healthcheck:
-            test:
-                - CMD
-                - wget
-                - '-q'
-                - '--spider'
-                - 'http://127.0.0.1:8055/server/health'
-            interval: 60s
-            timeout: 10s
-            retries: 5
+  directus_trinity:
+    image: directus/directus:11.13
+    ports:
+      - "8063:8055"
+    container_name: floh24-directus-trinity
+    volumes:
+      - ./start.sh:/start.sh
+      - ./my_uploads:/directus/uploads
+      - ./my_extensions:/directus/extensions
+    depends_on:
+      - directus_replica
+    environment:
+      SYNCHRONIZATION_STORE: redis
+      SYNCHRONIZATION_NAMESPACE: directus-sync
+      TZ: ${TZ}
+      KEY: "b25d8615-9596-5ea1-9aa3-922530ec40b1"
+      SECRET: "b6116487-b5b5-5c22-cda1-c8022c45e263"
+      WEBSOCKETS_ENABLED: "true"
+      EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
+      EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
+      EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
+      EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
+      EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
+      EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
+      EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
+      EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
+      EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
+      EMAIL_FROM: ${EMAIL_FROM}
+      DB_CLIENT: "pg"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CACHE_ENABLED: "true"
+      CACHE_AUTO_PURGE: "true"
+      CACHE_TTL: "15m"
+      CACHE_STORE: "redis"
+      ASSETS_CACHE_TTL: "300d"
+      REDIS: "redis://cache:6379"
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASS}
+      PUBLIC_URL: https://${PUBLIC_URL}
+      CORS_ENABLED: "true"
+      AUTH_PROVIDERS: ${AUTH_PROVIDERS}
+      AUTH_GOOGLE_DRIVER: ${AUTH_GOOGLE_DRIVER}
+      AUTH_GOOGLE_CLIENT_ID: ${AUTH_GOOGLE_CLIENT_ID}
+      AUTH_GOOGLE_CLIENT_SECRET: ${AUTH_GOOGLE_CLIENT_SECRET}
+      AUTH_GOOGLE_ISSUER_URL: ${AUTH_GOOGLE_ISSUER_URL}
+      AUTH_GOOGLE_IDENTIFIER_KEY: ${AUTH_GOOGLE_IDENTIFIER_KEY}
+      AUTH_GOOGLE_ICON: ${AUTH_GOOGLE_ICON}
+      AUTH_GOOGLE_LABEL: ${AUTH_GOOGLE_LABEL}
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - "-q"
+        - "--spider"
+        - "http://127.0.0.1:8055/server/health"
+      interval: 60s
+      timeout: 10s
+      retries: 5
 
-    directus_quart:
-        image: directus/directus:11.13
-        ports:
-            - '8064:8055'
-        container_name: floh24-directus-quart
-        volumes:
-            - ./start.sh:/start.sh
-            - ./my_uploads:/directus/uploads
-            - ./my_extensions:/directus/extensions
-        depends_on:
-            - directus_trinity
-        environment:
-            SYNCHRONIZATION_STORE: redis
-            SYNCHRONIZATION_NAMESPACE: directus-sync
-            TZ: ${TZ}
-            KEY: '255d861b-5996-5ea1-9a3a-922530ec40b1'
-            SECRET: 'b1661487-b5b5-52c2-acd1-c8022c45e263'
-            WEBSOCKETS_ENABLED: 'true'
-            EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
-            EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
-            EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
-            EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
-            EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
-            EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
-            EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
-            EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
-            EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
-            EMAIL_FROM: ${EMAIL_FROM}
-            DB_CLIENT: 'pg'
-            DB_HOST: 'database'
-            DB_PORT: '5432'
-            DB_DATABASE: ${DB_DATABASE}
-            DB_USER: ${DB_USER}
-            DB_PASSWORD: ${DB_PASSWORD}
-            CACHE_ENABLED: 'true'
-            CACHE_AUTO_PURGE: 'true'
-            CACHE_TTL: '15m'
-            CACHE_STORE: 'redis'
-            ASSETS_CACHE_TTL: '300d'
-            REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${ADMIN_PASS}
-            PUBLIC_URL: https://${PUBLIC_URL}
-            CORS_ENABLED: 'true'
-        healthcheck:
-            test:
-                - CMD
-                - wget
-                - '-q'
-                - '--spider'
-                - 'http://127.0.0.1:8055/server/health'
-            interval: 60s
-            timeout: 10s
-            retries: 5
+  directus_quart:
+    image: directus/directus:11.13
+    ports:
+      - "8064:8055"
+    container_name: floh24-directus-quart
+    volumes:
+      - ./start.sh:/start.sh
+      - ./my_uploads:/directus/uploads
+      - ./my_extensions:/directus/extensions
+    depends_on:
+      - directus_trinity
+    environment:
+      SYNCHRONIZATION_STORE: redis
+      SYNCHRONIZATION_NAMESPACE: directus-sync
+      TZ: ${TZ}
+      KEY: "255d861b-5996-5ea1-9a3a-922530ec40b1"
+      SECRET: "b1661487-b5b5-52c2-acd1-c8022c45e263"
+      WEBSOCKETS_ENABLED: "true"
+      EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
+      EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
+      EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
+      EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
+      EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
+      EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
+      EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
+      EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
+      EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
+      EMAIL_FROM: ${EMAIL_FROM}
+      DB_CLIENT: "pg"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CACHE_ENABLED: "true"
+      CACHE_AUTO_PURGE: "true"
+      CACHE_TTL: "15m"
+      CACHE_STORE: "redis"
+      ASSETS_CACHE_TTL: "300d"
+      REDIS: "redis://cache:6379"
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASS}
+      PUBLIC_URL: https://${PUBLIC_URL}
+      CORS_ENABLED: "true"
+      AUTH_PROVIDERS: ${AUTH_PROVIDERS}
+      AUTH_GOOGLE_DRIVER: ${AUTH_GOOGLE_DRIVER}
+      AUTH_GOOGLE_CLIENT_ID: ${AUTH_GOOGLE_CLIENT_ID}
+      AUTH_GOOGLE_CLIENT_SECRET: ${AUTH_GOOGLE_CLIENT_SECRET}
+      AUTH_GOOGLE_ISSUER_URL: ${AUTH_GOOGLE_ISSUER_URL}
+      AUTH_GOOGLE_IDENTIFIER_KEY: ${AUTH_GOOGLE_IDENTIFIER_KEY}
+      AUTH_GOOGLE_ICON: ${AUTH_GOOGLE_ICON}
+      AUTH_GOOGLE_LABEL: ${AUTH_GOOGLE_LABEL}
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - "-q"
+        - "--spider"
+        - "http://127.0.0.1:8055/server/health"
+      interval: 60s
+      timeout: 10s
+      retries: 5
 
-    directus_quint:
-        image: directus/directus:11.13
-        ports:
-            - '8060:8055'
-        container_name: floh24-directus-quint
-        volumes:
-            - ./start.sh:/start.sh
-            - ./my_uploads:/directus/uploads
-            - ./my_extensions:/directus/extensions
-        depends_on:
-            - directus_trinity
-        environment:
-            SYNCHRONIZATION_STORE: redis
-            SYNCHRONIZATION_NAMESPACE: directus-sync
-            TZ: ${TZ}
-            KEY: '5d25861b-9659-ea51-9a3a-40b922530ec1'
-            SECRET: '661b1487-5bb5-2c52-cda1-0c82452ce263'
-            WEBSOCKETS_ENABLED: 'true'
-            EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
-            EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
-            EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
-            EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
-            EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
-            EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
-            EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
-            EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
-            EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
-            EMAIL_FROM: ${EMAIL_FROM}
-            DB_CLIENT: 'pg'
-            DB_HOST: 'database'
-            DB_PORT: '5432'
-            DB_DATABASE: ${DB_DATABASE}
-            DB_USER: ${DB_USER}
-            DB_PASSWORD: ${DB_PASSWORD}
-            CACHE_ENABLED: 'true'
-            CACHE_AUTO_PURGE: 'true'
-            CACHE_TTL: '15m'
-            CACHE_STORE: 'redis'
-            ASSETS_CACHE_TTL: '300d'
-            REDIS: 'redis://cache:6379'
-            ADMIN_EMAIL: ${ADMIN_EMAIL}
-            ADMIN_PASSWORD: ${ADMIN_PASS}
-            PUBLIC_URL: https://${PUBLIC_URL}
-            CORS_ENABLED: 'true'
-        healthcheck:
-            test:
-                - CMD
-                - wget
-                - '-q'
-                - '--spider'
-                - 'http://127.0.0.1:8055/server/health'
-            interval: 60s
-            timeout: 10s
-            retries: 5
+  directus_quint:
+    image: directus/directus:11.13
+    ports:
+      - "8060:8055"
+    container_name: floh24-directus-quint
+    volumes:
+      - ./start.sh:/start.sh
+      - ./my_uploads:/directus/uploads
+      - ./my_extensions:/directus/extensions
+    depends_on:
+      - directus_trinity
+    environment:
+      SYNCHRONIZATION_STORE: redis
+      SYNCHRONIZATION_NAMESPACE: directus-sync
+      TZ: ${TZ}
+      KEY: "5d25861b-9659-ea51-9a3a-40b922530ec1"
+      SECRET: "661b1487-5bb5-2c52-cda1-0c82452ce263"
+      WEBSOCKETS_ENABLED: "true"
+      EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
+      EMAIL_SMTP_HOST: ${EMAIL_SMTP_HOST}
+      EMAIL_SMTP_PORT: ${EMAIL_SMTP_PORT}
+      EMAIL_SMTP_USER: ${EMAIL_SMTP_USER}
+      EMAIL_SMTP_PASSWORD: ${EMAIL_SMTP_PASSWORD}
+      EMAIL_SMTP_SECURE: ${EMAIL_SMTP_SECURE}
+      EMAIL_SMTP_IGNORE_TLS: ${EMAIL_SMTP_IGNORE_TLS}
+      EMAIL_VERIFY_SETUP: ${EMAIL_VERIFY_SETUP}
+      EMAIL_SMTP_POOL: ${EMAIL_SMTP_POOL}
+      EMAIL_FROM: ${EMAIL_FROM}
+      DB_CLIENT: "pg"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CACHE_ENABLED: "true"
+      CACHE_AUTO_PURGE: "true"
+      CACHE_TTL: "15m"
+      CACHE_STORE: "redis"
+      ASSETS_CACHE_TTL: "300d"
+      REDIS: "redis://cache:6379"
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASS}
+      PUBLIC_URL: https://${PUBLIC_URL}
+      AUTH_PROVIDERS: ${AUTH_PROVIDERS}
+      AUTH_GOOGLE_DRIVER: ${AUTH_GOOGLE_DRIVER}
+      AUTH_GOOGLE_CLIENT_ID: ${AUTH_GOOGLE_CLIENT_ID}
+      AUTH_GOOGLE_CLIENT_SECRET: ${AUTH_GOOGLE_CLIENT_SECRET}
+      AUTH_GOOGLE_ISSUER_URL: ${AUTH_GOOGLE_ISSUER_URL}
+      AUTH_GOOGLE_IDENTIFIER_KEY: ${AUTH_GOOGLE_IDENTIFIER_KEY}
+      AUTH_GOOGLE_ICON: ${AUTH_GOOGLE_ICON}
+      AUTH_GOOGLE_LABEL: ${AUTH_GOOGLE_LABEL}
+      CORS_ENABLED: "true"
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - "-q"
+        - "--spider"
+        - "http://127.0.0.1:8055/server/health"
+      interval: 60s
+      timeout: 10s
+      retries: 5
 
 volumes:
-    my_uploads:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: ./data/uploads
-    my_extensions:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: ./data/extensions
+  my_uploads:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/uploads
+  my_extensions:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/extensions
