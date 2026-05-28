@@ -1,0 +1,61 @@
+name: "Content"
+description: "Content-Erstellung: Text, Foto, Video oder Social Media"
+title: "[Content]: "
+labels: ["type:content", "status:inbox"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Neuer Content Task
+        Bitte alle relevanten Felder ausfullen.
+
+  - type: input
+    id: client
+    attributes:
+      label: Client
+      description: "4-Buchstaben Client-Code (z.B. AARV, ROEN)"
+      placeholder: "AARV"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: "Was muss gemacht werden?"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioritat
+      options:
+        - high
+        - medium
+        - low
+      default: 1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: content_type
+    attributes:
+      label: Content-Typ
+      options:
+        - text
+        - foto
+        - video
+        - social-media
+      default: 0
+    validations:
+      required: false
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline
+      description: "Optional: Bis wann?"
+      placeholder: "2026-06-15"
+    validations:
+      required: false
