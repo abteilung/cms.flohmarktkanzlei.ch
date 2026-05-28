@@ -1,0 +1,60 @@
+name: "Support"
+description: "Wartung, Support oder technisches Problem"
+title: "[Support]: "
+labels: ["type:support", "status:inbox"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Neuer Support Task
+        Bitte alle relevanten Felder ausfullen.
+
+  - type: input
+    id: client
+    attributes:
+      label: Client
+      description: "4-Buchstaben Client-Code (z.B. AARV, ROEN)"
+      placeholder: "AARV"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: "Was muss gemacht werden?"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioritat
+      options:
+        - high
+        - medium
+        - low
+      default: 1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Dringlichkeit
+      options:
+        - sofort
+        - diese-woche
+        - kein-zeitdruck
+      default: 1
+    validations:
+      required: false
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline
+      description: "Optional: Bis wann?"
+      placeholder: "2026-06-15"
+    validations:
+      required: false
